@@ -46,4 +46,4 @@ Date.prototype.pattern = function(fmt) {
   var date = new Date();
   //date = date.pattern("yyyy年MM月dd日 hh:mm:ss");
  date = date.pattern("yyyy年MM月dd日");
-  module.exports = date;
+export default date;
