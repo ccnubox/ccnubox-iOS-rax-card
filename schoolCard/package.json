@@ -8,6 +8,7 @@
     "lint": "eslint --ext .js --ext .jsx ./src"
   },
   "dependencies": {
+    "moment": "^2.21.0",
     "rax": "^0.5.4",
     "rax-image": "^0.5.4",
     "rax-text": "^0.5.4",
