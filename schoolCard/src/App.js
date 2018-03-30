@@ -27,11 +27,11 @@ class App extends Component {
     let option = {};
    // option.userId = Cookie.getCookie("userId");
      option.userId = 2016214322;
-     MoneyService.getMoney(option)
-     .then((res)=>{
-       let money = res[0].outMoney;
-       this.setState({money});
-     })
+    //  MoneyService.getMoney(option)
+    //  .then((res)=>{
+    //    let money = res[0].outMoney;
+    //    this.setState({money});
+    //  })
   }
   
 
@@ -43,9 +43,11 @@ class App extends Component {
       <Image  style={styles.centerPicture} source={image}
         resizeMode="contain"
       />
+      <View style = {styles.center}>
       <Text style={styles.warnWord}>您的校园卡余额是为</Text>
       <Text style={styles.Money}>{this.state.money}元</Text>
       <Text style={styles.Date}>截止至{this.state.time}</Text>
+      </View>
       </View>
     );
   }
@@ -60,26 +62,32 @@ const styles={
     height:1334,
     alignItems: 'center'
   },
+  
   centerPicture:{
     width:550,
     height:703,
     marginTop: 140,
    
   },
+  center:{
+    backgroundColor:"rgb(22,22,22)",
+    marginTop:-703,
+    width:550,
+    height:703,
+    alignItems: 'center'
+  },
   warnWord:{
     fontSize:34,
     color:'rgb(67,67,67)',
-    position:'absolute',
-    top:324,
-    left:172,
+    marginTop:324,
+   
     
   },
   Money:{
     fontSize:74,
     color:'rgb(254,183,90)',
-    position:'absolute',
-    top:440,
-    left:210,
+    marginTop:440,
+    
   },
   Date:{
     fontSize:24,
