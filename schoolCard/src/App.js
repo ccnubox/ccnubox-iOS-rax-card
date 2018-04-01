@@ -18,7 +18,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      money : '0.00',
+      money : '1000.00',
       time : date,
     }
   }
@@ -70,7 +70,6 @@ const styles={
    
   },
   center:{
-    backgroundColor:"rgb(22,22,22)",
     marginTop:-703,
     width:550,
     height:703,
@@ -79,22 +78,20 @@ const styles={
   warnWord:{
     fontSize:34,
     color:'rgb(67,67,67)',
-    marginTop:324,
-   
+    marginTop:190  
     
   },
   Money:{
     fontSize:74,
     color:'rgb(254,183,90)',
-    marginTop:440,
+    marginTop:80
     
   },
   Date:{
     fontSize:24,
     color:'rgb(142,142,147)',
-    position:'absolute',
-    top:672,
-    left:280,
+    marginTop:160,
+    marginLeft:64
   }
 }
  export default App;
