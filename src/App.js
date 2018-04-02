@@ -27,11 +27,11 @@ class App extends Component {
     let option = {};
    // option.userId = Cookie.getCookie("userId");
      option.userId = 2016214322;
-    //  MoneyService.getMoney(option)
-    //  .then((res)=>{
-    //    let money = res[0].outMoney;
-    //    this.setState({money});
-    //  })
+     MoneyService.getMoney(option)
+     .then((res)=>{
+       let money = res[0].outMoney;
+       this.setState({money});
+     })
   }
   
 

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "rax-scripts start",
     "build": "rax-scripts build",
-    "lint": "eslint --ext .js --ext .jsx ./src"
+    "lint": "eslint --ext .js --ext .jsx ./src",
+    "precommit": "pretty-quick --staged"
   },
   "dependencies": {
     "moment": "^2.21.0",
@@ -17,6 +18,8 @@
   "devDependencies": {
     "rax-scripts": "^0.5.4",
     "babel-eslint": "^7.1.0",
-    "eslint": "^3.10.0"
+    "eslint": "^3.10.0",
+    "prettier": "1.11.1",
+    "pretty-quick": "1.4.1"
   }
 }
