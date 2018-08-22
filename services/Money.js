@@ -1,10 +1,10 @@
-import request from "../box-ui/util/request";
+import request from "../src/box-ui/util/request";
 
 const MoneyService = {
   getMoney(option) {
     return request({
       method: "GET",
-      url: `https://ccnubox.muxixyz.com/api/card/balance?sid=${option.userId}`
+      url: `https://ccnubox.muxixyz.com/api/card/balance/?sid=${option.userId}`
     });
   }
 };

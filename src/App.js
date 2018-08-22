@@ -4,11 +4,10 @@ import Text from "rax-text";
 import moment from "moment";
 import MoneyService from "../services/Money.js";
 import Image from "rax-image";
+const native = require("@weex-module/test");
 import centerImage from "./assets/center-card-picture.png";
-
-// let image = {
-//   uri:"https://wx3.sinaimg.cn/large/006P0MECly1fpflxjkgfdj30fa0jjjr9.jpg"
-// };
+import { parseSearchString } from "./box-ui/util";
+import { confirm } from "./box-ui/common/modal";
 
 let date = moment(new Date()).format("YYYY年MM月DD日");
 
@@ -23,28 +22,62 @@ class App extends Component {
 
   componentWillMount() {
     let option = {};
-    let money;
-    // option.userId = Cookie.getCookie("userId");
-    option.userId = 2016214322;
+    let qd = {};
 
-    MoneyService.getMoney(option).then(res => {
-      money = res.model.balance;
-      this.setState({ money });
-    });
+    // 获取查询参数
+    if (window.location.search) {
+      qd = parseSearchString(window.location.search);
+    } else {
+      alert("参数缺失错误");
+    }
+
+    option.userId = qd.sid[0];
+
+    this.getBalance(option);
+  }
+
+  getBalance(option) {
+    let money;
+    return MoneyService.getMoney(option)
+      .then(res => {
+        money = res.model.balance;
+        this.setState({ money });
+        native.changeLoadingStatus(true);
+      })
+      .catch(err => {
+        native.changeLoadingStatus(true);
+        confirm(`服务端错误: ${err.status || err}`, "重试", "取消").then(
+          val => {
+            if (val > 0) {
+              native.changeLoadingStatus(false);
+              this.getBalance(option);
+            }
+          }
+        );
+      });
   }
 
   render() {
     return (
       <View style={styles.App}>
-        <Image
-          style={styles.centerPicture}
-          source={centerImage}
-          resizeMode="contain"
-        />
-        <View style={styles.center}>
-          <Text style={styles.warnWord}>您的校园卡余额是为</Text>
-          <Text style={styles.Money}>{this.state.money}元</Text>
-          <Text style={styles.Date}>截止至{this.state.time}</Text>
+        <View style={styles.container}>
+          <Image
+            style={styles.centerPicture}
+            source={centerImage}
+            resizeMode="contain"
+          />
+          <View style={styles.center}>
+            <View style={styles.warnWordContainer}>
+              <Text style={styles.warnWord}>您的校园卡余额为</Text>
+            </View>
+
+            <View style={styles.MoneyContainer}>
+              <Text style={styles.Money}>{this.state.money}元</Text>
+            </View>
+            <View style={styles.DateContainer}>
+              <Text style={styles.Date}>截止至{this.state.time}</Text>
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -54,38 +87,60 @@ class App extends Component {
 const styles = {
   App: {
     backgroundColor: "rgb(239,239,244)",
-    // width:750,
-    // height:1334,
     flex: 1,
     alignItems: "center"
   },
+  container: {
+    width: 555,
+    height: 703,
+    position: "relative"
+  },
 
   centerPicture: {
-    width: 550,
+    width: 555,
     height: 703,
     marginTop: 140
   },
   center: {
-    marginTop: -703,
-    width: 550,
+    position: "absolute",
+    top: 140,
+    left: 77,
+    width: 400,
     height: 703,
+    display: "flex",
     alignItems: "center"
+  },
+  warnWordContainer: {
+    color: "rgb(67,67,67)",
+    marginTop: 190,
+    width: 400,
+    display: "flex"
+  },
+  MoneyContainer: {
+    color: "rgb(254,183,90)",
+    marginTop: 80,
+    width: 400,
+    alignItems: "center"
+  },
+  DateContainer: {
+    color: "rgb(142,142,147)",
+    marginTop: 150,
+    width: 400,
+    display: "flex",
+    alignItems: "flex-end"
   },
   warnWord: {
     fontSize: 34,
-    color: "rgb(67,67,67)",
-    marginTop: 190
+    color: "rgb(67,67,67)"
   },
   Money: {
     fontSize: 74,
-    color: "rgb(254,183,90)",
-    marginTop: 80
+    fontWeight: 500,
+    color: "rgb(254,183,90)"
   },
   Date: {
     fontSize: 24,
-    color: "rgb(142,142,147)",
-    marginTop: 160,
-    marginLeft: 64
+    color: "rgb(142,142,147)"
   }
 };
 export default App;
