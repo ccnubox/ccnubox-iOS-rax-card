@@ -1,7 +1,7 @@
 {
   "name": "ccnubox-rax-card",
   "author": "MFE",
-  "version": "2.0.0-beta1",
+  "version": "2.0.0-rc1",
   "scripts": {
     "start": "rax-scripts start",
     "build": "rax-scripts build",
@@ -14,6 +14,7 @@
     "rax-canvas": "^0.6.3",
     "rax-image": "^0.5.4",
     "rax-text": "^0.5.4",
+    "rax-touchable": "^0.6.5",
     "rax-view": "^0.5.4"
   },
   "devDependencies": {

@@ -8,8 +8,9 @@ const native = require("@weex-module/test");
 import centerImage from "./assets/center-card-picture.png";
 import { parseSearchString } from "./box-ui/util";
 import { confirm } from "./box-ui/common/modal";
+import Notification from "./box-ui/common/notification";
 
-let date = moment(new Date()).format("YYYY年MM月DD日");
+const date = moment(new Date()).format("YYYY年MM月DD日");
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
     let money;
     return MoneyService.getMoney(option)
       .then(res => {
+        native.reportInsightApiEvent("getCardInfo", "success", "null");
         money = res.model.balance;
         this.setState({ money });
         native.changeLoadingStatus(true);
@@ -48,6 +50,11 @@ class App extends Component {
         native.changeLoadingStatus(true);
         confirm(`服务端错误: ${err.status || err}`, "重试", "取消").then(
           val => {
+            native.reportInsightApiEvent(
+              "getCardInfo",
+              "error",
+              JSON.stringify(err)
+            );
             if (val > 0) {
               native.changeLoadingStatus(false);
               this.getBalance(option);
@@ -60,6 +67,12 @@ class App extends Component {
   render() {
     return (
       <View style={styles.App}>
+        <Notification
+          pageId="com.muxistudio.card"
+          style={{
+            width: 750
+          }}
+        />
         <View style={styles.container}>
           <Image
             style={styles.centerPicture}

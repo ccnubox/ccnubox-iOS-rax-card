@@ -1,6 +1,6 @@
 // {"framework" : "Rax"}
 /*! com.muxistudio.card, version 2.0.0-rc1, built time: Fri Oct 05 2018 23:16:39 GMT+0800 (China Standard Time) */
-define("index.bundle.min", function(e) {
+define("com.muxistudio.card", function(e) {
   !(function(e) {
     function t(a) {
       if (n[a]) return n[a].exports;
@@ -18183,4 +18183,4 @@ define("index.bundle.min", function(e) {
     }
   ]);
 }),
-  require("index.bundle.min");
+  require("com.muxistudio.card");
